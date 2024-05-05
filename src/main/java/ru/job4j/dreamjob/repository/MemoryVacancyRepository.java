@@ -21,12 +21,12 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
 
     private MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer", "desc1", LocalDateTime.parse("2024-01-25T15:08:16")));
-        save(new Vacancy(0, "Junior Java Developer", "desc2", LocalDateTime.parse("2024-02-25T15:08:16")));
-        save(new Vacancy(0, "Junior+ Java Developer", "desc3", LocalDateTime.parse("2024-03-25T15:08:16")));
-        save(new Vacancy(0, "Middle Java Developer", "desc4", LocalDateTime.parse("2024-04-25T15:08:16")));
-        save(new Vacancy(0, "Middle+ Java Developer", "desc5", LocalDateTime.parse("2024-05-25T15:08:16")));
-        save(new Vacancy(0, "Senior Java Developer", "desc6", LocalDateTime.parse("2024-06-25T15:08:16")));
+        save(new Vacancy(0, "Intern Java Developer", "desc1", LocalDateTime.parse("2024-01-25T15:08:16"), true));
+        save(new Vacancy(0, "Junior Java Developer", "desc2", LocalDateTime.parse("2024-02-25T15:08:16"), false));
+        save(new Vacancy(0, "Junior+ Java Developer", "desc3", LocalDateTime.parse("2024-03-25T15:08:16"), true));
+        save(new Vacancy(0, "Middle Java Developer", "desc4", LocalDateTime.parse("2024-04-25T15:08:16"), true));
+        save(new Vacancy(0, "Middle+ Java Developer", "desc5", LocalDateTime.parse("2024-05-25T15:08:16"), false));
+        save(new Vacancy(0, "Senior Java Developer", "desc6", LocalDateTime.parse("2024-06-25T15:08:16"), true));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(),
                 (id, oldVacancy) -> new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(),
-                        vacancy.getCreationDate())) != null;
+                        vacancy.getCreationDate(), vacancy.getVisible())) != null;
     }
 
     @Override
