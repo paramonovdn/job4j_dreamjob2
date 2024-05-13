@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.controller;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,7 @@ import ru.job4j.dreamjob.service.FileService;
 
 @RestController
 @RequestMapping("/files")
+@ThreadSafe
 public class FileController {
 
     private final FileService fileService;
