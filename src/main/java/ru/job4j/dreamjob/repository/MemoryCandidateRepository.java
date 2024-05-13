@@ -20,9 +20,9 @@ public class MemoryCandidateRepository implements CandidateRepository {
 
 
     private MemoryCandidateRepository() {
-        save(new Candidate(0, "Ivan Ivanov", "desc1", LocalDateTime.parse("2024-01-25T15:08:16"), 1));
-        save(new Candidate(0, "Petr Petrov", "desc2", LocalDateTime.parse("2024-02-25T15:08:16"), 2));
-        save(new Candidate(0, "Igor Igorev", "desc3", LocalDateTime.parse("2024-03-25T15:08:16"), 3));
+        save(new Candidate(0, "Ivan Ivanov", "desc1", LocalDateTime.parse("2024-01-25T15:08:16"), 1, 0));
+        save(new Candidate(0, "Petr Petrov", "desc2", LocalDateTime.parse("2024-02-25T15:08:16"), 2, 0));
+        save(new Candidate(0, "Igor Igorev", "desc3", LocalDateTime.parse("2024-03-25T15:08:16"), 3, 0));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
         return candidates.computeIfPresent(candidate.getId(), (id, oldCandidate) -> {
             return new Candidate(
                     oldCandidate.getId(), candidate.getName(), candidate.getDescription(),
-                    candidate.getCreationDate(), candidate.getCityId()
+                    candidate.getCreationDate(), candidate.getCityId(), candidate.getFileId()
             );
         }) != null;
     }
