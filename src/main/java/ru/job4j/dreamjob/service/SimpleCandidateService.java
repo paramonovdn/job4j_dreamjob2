@@ -4,14 +4,9 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.repository.CandidateRepository;
-import ru.job4j.dreamjob.repository.MemoryCandidateRepository;
-import ru.job4j.dreamjob.repository.MemoryVacancyRepository;
-import ru.job4j.dreamjob.repository.VacancyRepository;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,7 +35,13 @@ public class SimpleCandidateService implements CandidateService {
 
     @Override
     public boolean deleteById(int id) {
-        return candidateRepository.deleteById(id);
+        var fileOptional = findById(id);
+        if (fileOptional.isPresent()) {
+            candidateRepository.deleteById(id);
+            fileService.deleteById(fileOptional.get().getFileId());
+            return  true;
+        }
+        return false;
     }
 
     @Override
